@@ -1,3 +1,31 @@
-[gd_scene format=3 uid="uid://dg3k8oxho7d7m"]
+[gd_scene load_steps=3 format=3 uid="uid://dg3k8oxho7d7m"]
+
+[ext_resource type="Texture2D" uid="uid://dihtctnu7r2em" path="res://Flappy Bird Assets/Tiles/Style 1/PipeStyle1.png" id="1_f17p0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f17p0"]
+size = Vector2(25.93464, 78.22324)
 
 [node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(47, 108.9375)
+scale = Vector2(1.233871, 2.7357597)
+texture = ExtResource("1_f17p0")
+region_enabled = true
+region_rect = Rect2(0, 0, 31.835602, 79.909256)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D"]
+position = Vector2(0, 0.38837433)
+shape = SubResource("RectangleShape2D_f17p0")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(47, 373)
+scale = Vector2(1.233871, 2.7357597)
+texture = ExtResource("1_f17p0")
+region_enabled = true
+region_rect = Rect2(0, 0, 31.835602, 79.909256)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(47.000004, 372.00003)
+scale = Vector2(1.233871, 2.7357597)
+shape = SubResource("RectangleShape2D_f17p0")
