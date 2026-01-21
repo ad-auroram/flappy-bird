@@ -1,9 +1,8 @@
 using Godot;
 using System;
 
-public partial class Bird : CharacterBody2D
+public partial class Bird : Area2D
 {
-	public const int Gravity = 800;
 	public const float Max = 1000;
 	public const float FlapSpeed = -350;
 	
@@ -13,8 +12,10 @@ public partial class Bird : CharacterBody2D
 	public bool flying = false;
 	public bool falling = false;
 	public bool alive = true;
+	
+	public Vector2 Velocity = Vector2.Zero;
 
-	public Vector2 StartPos = new Vector2(50, 50);
+	public Vector2 StartPos = new Vector2(150, 275);
 
 	public override void _Ready()
 	{
@@ -52,43 +53,35 @@ public partial class Bird : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		Vector2 vel = Velocity;
-
 		if (alive)
 		{
 			// Apply gravity when flying or falling
 			if (flying || falling)
 			{
-				vel.Y += (float)(Gravity * delta);
+				Velocity = new Vector2(Velocity.X, Velocity.Y + (float)(Gravity * delta));
 			}
 
 			// Cap velocity
-			if (vel.Y > Max)
+			if (Velocity.Y > Max)
 			{
-				vel.Y = Max;
+				Velocity = new Vector2(Velocity.X, Max);
 			}
-
-			Velocity = vel;
 
 			UpdateRotation();
-			MoveAndSlide();
-
-			// Check if we hit anything (pipes, ground, etc.)
-			if (GetSlideCollisionCount() > 0)
-			{
-				Die();
-			}
+			
+			// Move the bird manually
+			Position += Velocity * (float)delta;
 		}
 		else
 		{
 			// Dead: continue applying gravity to fall to floor
-			vel.Y += (float)(Gravity * delta);
-			if (vel.Y > Max)
+			Velocity = new Vector2(Velocity.X, Velocity.Y + (float)(Gravity * delta));
+			if (Velocity.Y > Max)
 			{
-				vel.Y = Max;
+				Velocity = new Vector2(Velocity.X, Max);
 			}
-			Velocity = vel;
-			MoveAndSlide();
+			
+			Position += Velocity * (float)delta;
 		}
 	}
 

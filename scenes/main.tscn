@@ -1,15 +1,44 @@
-[gd_scene load_steps=3 format=3 uid="uid://c765psdjm8n4w"]
+[gd_scene load_steps=7 format=3 uid="uid://c765psdjm8n4w"]
 
 [ext_resource type="Texture2D" uid="uid://d174u0jjo3v2p" path="res://Flappy Bird Assets/Background/Background4.png" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://bqfduahqm5lq" path="res://scripts/Main.cs" id="1_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://bumu4ygh6ay6a" path="res://scenes/bird.tscn" id="2_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://dg3k8oxho7d7m" path="res://scenes/pipes.tscn" id="3_sugp2"]
+[ext_resource type="PackedScene" uid="uid://bkiw27bj8lqls" path="res://scenes/ground.tscn" id="4_jyhfs"]
+[ext_resource type="Script" uid="uid://eo7tygbrom6k" path="res://scripts/Pipes.cs" id="6_tefeu"]
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_tbgi4")
 
 [node name="Background4" type="Sprite2D" parent="."]
+texture_filter = 1
 position = Vector2(334, 325.5)
 scale = Vector2(2.59375, 2.5273438)
 texture = ExtResource("1_o5qli")
 
+[node name="Background5" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(983, 325.5)
+scale = Vector2(2.59375, 2.5273438)
+texture = ExtResource("1_o5qli")
+
 [node name="bird" parent="." instance=ExtResource("2_0wfyh")]
-position = Vector2(28, 145)
+position = Vector2(150, 275)
 scale = Vector2(3, 3)
+
+[node name="ground" parent="." instance=ExtResource("4_jyhfs")]
+z_index = 1
+texture_filter = 1
+position = Vector2(-5, 558)
+scale = Vector2(3, 3)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(3.8259058, 3.616099)
+anchor_mode = 0
+
+[node name="Pipes" parent="." instance=ExtResource("3_sugp2")]
+visible = false
+position = Vector2(569, 58)
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("6_tefeu")

@@ -1,31 +1,87 @@
-[gd_scene load_steps=3 format=3 uid="uid://dg3k8oxho7d7m"]
+[gd_scene load_steps=6 format=4 uid="uid://dg3k8oxho7d7m"]
 
-[ext_resource type="Texture2D" uid="uid://dihtctnu7r2em" path="res://Flappy Bird Assets/Tiles/Style 1/PipeStyle1.png" id="1_f17p0"]
+[ext_resource type="Texture2D" uid="uid://3xm0kl0oey5r" path="res://Flappy Bird Assets/Tiles/Style 4/SimpleStyle4.png" id="2_3ahhd"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_prsvi"]
+texture = ExtResource("2_3ahhd")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_v53nb"]
+sources/0 = SubResource("TileSetAtlasSource_prsvi")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f17p0"]
-size = Vector2(25.93464, 78.22324)
+size = Vector2(21.071896, 81.330246)
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ahhd"]
+size = Vector2(16.737099, 6.0427847)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(47, 108.9375)
-scale = Vector2(1.233871, 2.7357597)
-texture = ExtResource("1_f17p0")
-region_enabled = true
-region_rect = Rect2(0, 0, 31.835602, 79.909256)
+[node name="Pipes" type="Node2D"]
+scale = Vector2(2.315911, 1.4362614)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D"]
-position = Vector2(0, 0.38837433)
-shape = SubResource("RectangleShape2D_f17p0")
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+scale = Vector2(1, 1.1546838)
+tile_map_data = PackedByteArray("AAACABAAAAAAAAAAAAACABEAAAAAAAEAAAADABAAAAABAAAAAAADABEAAAABAAEAAAACABIAAAAAAAEAAAADABIAAAABAAEAAAACABMAAAAAAAEAAAADABMAAAABAAEAAAACABQAAAAAAAEAAAADABQAAAABAAEAAAACABUAAAAAAAEAAAADABUAAAABAAEAAAACABYAAAAAAAEAAAADABYAAAABAAEAAAACABcAAAAAAAEAAAADABcAAAABAAEAAAACABgAAAAAAAEAAAADABgAAAABAAEAAAACABkAAAAAAAEAAAADABkAAAABAAEAAAACABoAAAAAAAEAAAADABoAAAABAAEAAAACABsAAAAAAAEAAAADABsAAAABAAEAAAACABwAAAAAAAEAAAADABwAAAABAAEAAAACAB0AAAAAAAEAAAADAB0AAAABAAEAAAACAB4AAAAAAAEAAAADAB4AAAABAAEAAAACAB8AAAAAAAEAAAADAB8AAAABAAEAAAACACAAAAAAAAEAAAADACAAAAABAAEAAAACACEAAAAAAAEAAAADACEAAAABAAEAAAACACIAAAAAAAEAAAADACIAAAABAAEAAAACACMAAAAAAAEAAAADACMAAAABAAEAAAACACQAAAAAAAEAAAADACQAAAABAAEAAAACACUAAAAAAAEAAAADACUAAAABAAEAAAACACYAAAAAAAEAAAADACYAAAABAAEAAAACAA0AAAAAAAIAAAADAA0AAAABAAIAAAACAAwAAAAAAAEAAAADAAwAAAABAAEAAAACAAsAAAAAAAEAAAADAAsAAAABAAEAAAACAAoAAAAAAAEAAAADAAoAAAABAAEAAAACAAkAAAAAAAEAAAADAAkAAAABAAEAAAACAAgAAAAAAAEAAAADAAgAAAABAAEAAAACAAcAAAAAAAEAAAADAAcAAAABAAEAAAACAAYAAAAAAAEAAAADAAYAAAABAAEAAAACAAUAAAAAAAEAAAADAAUAAAABAAEAAAACAAQAAAAAAAEAAAADAAQAAAABAAEAAAACAAMAAAAAAAEAAAADAAMAAAABAAEAAAACAAIAAAAAAAEAAAADAAIAAAABAAEAAAACAAEAAAAAAAEAAAADAAEAAAABAAEAAAACAAAAAAAAAAEAAAADAAAAAAABAAEAAAACAP//AAAAAAEAAAADAP//AAABAAEAAAACAP7/AAAAAAEAAAADAP7/AAABAAEAAAACAP3/AAAAAAEAAAADAP3/AAABAAEAAAACAPz/AAAAAAEAAAADAPz/AAABAAEAAAACAPv/AAAAAAEAAAADAPv/AAABAAEAAAA=")
+tile_set = SubResource("TileSet_v53nb")
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-position = Vector2(47, 373)
-scale = Vector2(1.233871, 2.7357597)
-texture = ExtResource("1_f17p0")
-region_enabled = true
-region_rect = Rect2(0, 0, 31.835602, 79.909256)
+[node name="top pipe" type="Area2D" parent="."]
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(47.000004, 372.00003)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="top pipe"]
+position = Vector2(48, 141.75)
 scale = Vector2(1.233871, 2.7357597)
 shape = SubResource("RectangleShape2D_f17p0")
+
+[node name="bottom pipe" type="Area2D" parent="."]
+position = Vector2(0, 21)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="bottom pipe"]
+position = Vector2(48, 387)
+scale = Vector2(1.233871, 2.7357597)
+shape = SubResource("RectangleShape2D_f17p0")
+
+[node name="space" type="Area2D" parent="."]
+scale = Vector2(-3.100771, 12.0640545)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="space"]
+position = Vector2(-15.48, 22.894)
+rotation = -3.1415925
+scale = Vector2(0.5780581, 0.43895435)
+shape = SubResource("RectangleShape2D_3ahhd")
