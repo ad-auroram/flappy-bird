@@ -7,7 +7,9 @@ public partial class Main : Node2D
 	[Export] public float PipeSpeed = 300f;
 
 	private List<Node2D> activePipes = new List<Node2D>();
+	private List<Node2D> activeGrounds = new List<Node2D>();
 	private Bird bird;
+	private int score = 0;
 
 	public override void _Ready()
 	{
@@ -19,29 +21,37 @@ public partial class Main : Node2D
 
 	public override void _Process(double delta)
 	{
-		// Stop moving pipes when bird dies
+		// Stop moving objects when bird dies
 		if (!bird.alive) return;
 
-		// Move all active pipes left
-		for (int i = activePipes.Count - 1; i >= 0; i--)
-		{
-			Node2D pipe = activePipes[i];
+		// Move and remove pipes
+		MoveAndRemoveObjects(activePipes, delta, -150);
+		
+		// Move and remove ground sections
+		MoveAndRemoveObjects(activeGrounds, delta, -650);
+	}
 
-			if (pipe == null || !IsInstanceValid(pipe))
+	private void MoveAndRemoveObjects(List<Node2D> objects, double delta, float removeThreshold)
+	{
+		for (int i = objects.Count - 1; i >= 0; i--)
+		{
+			Node2D obj = objects[i];
+
+			if (obj == null || !IsInstanceValid(obj))
 			{
-				activePipes.RemoveAt(i);
+				objects.RemoveAt(i);
 				continue;
 			}
 
-			// Move pipe left
-			pipe.Position = new Vector2(pipe.Position.X - PipeSpeed * (float)delta, pipe.Position.Y);
+			// Move object left
+			obj.Position = new Vector2(obj.Position.X - PipeSpeed * (float)delta, obj.Position.Y);
 
-			// Remove when offscreen (add buffer for pipe width)
-			if (pipe.Position.X < -150)
+			// Remove when offscreen
+			if (obj.Position.X < removeThreshold)
 			{
-				pipe.QueueFree();
-				activePipes.RemoveAt(i);
-				GD.Print("Pipe removed at X: ", pipe.Position.X);
+				obj.QueueFree();
+				objects.RemoveAt(i);
+				GD.Print("Object removed at X: ", obj.Position.X);
 			}
 		}
 	}
@@ -58,9 +68,64 @@ public partial class Main : Node2D
 		}
 	}
 
-	// Called by Pipes spawner to register new pipes
+	// Called by spawners to register new objects
+	public void RegisterSpawnedObject(string objectType, Node2D obj)
+	{
+		if (objectType == "pipe")
+		{
+			activePipes.Add(obj);
+		}
+		else if (objectType == "ground")
+		{
+			activeGrounds.Add(obj);
+		}
+	}
+
+	// Legacy method for compatibility with old Pipes.cs
 	public void RegisterPipe(Node2D pipe)
 	{
 		activePipes.Add(pipe);
+	}
+
+	public void AddScore(int points)
+	{
+		score += points;
+		GD.Print("Score: ", score);
+	}
+
+	public int GetScore()
+	{
+		return score;
+	}
+
+	public void ResetGame()
+	{
+		score = 0;
+		
+		// Clear all pipes and grounds
+		foreach (var pipe in activePipes)
+		{
+			if (pipe != null && IsInstanceValid(pipe))
+			{
+				pipe.QueueFree();
+			}
+		}
+		activePipes.Clear();
+
+		foreach (var ground in activeGrounds)
+		{
+			if (ground != null && IsInstanceValid(ground))
+			{
+				ground.QueueFree();
+			}
+		}
+		activeGrounds.Clear();
+
+		// Respawn initial ground sections
+		Spawner groundSpawner = GetNode<Spawner>("GroundSpawner");
+		if (groundSpawner != null)
+		{
+			groundSpawner.RespawnInitialSections();
+		}
 	}
 }
