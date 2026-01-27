@@ -49,7 +49,7 @@ texture = ExtResource("1_pybca")
 sources/0 = SubResource("TileSetAtlasSource_mi8v4")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pybca"]
-size = Vector2(58.600002, 36)
+size = Vector2(58.600002, 56)
 
 [node name="ground" type="Node2D"]
 
@@ -59,9 +59,9 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAAAAMAAAAAAAEAAAABAAQAAAAEAAAAAAAAAAM
 tile_set = SubResource("TileSet_lmksl")
 rendering_quadrant_size = 21
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="ground" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(879, 20)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ground"]
+position = Vector2(879, 35)
 scale = Vector2(30, 1)
 shape = SubResource("RectangleShape2D_pybca")

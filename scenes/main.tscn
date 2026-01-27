@@ -1,10 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://c765psdjm8n4w"]
+[gd_scene load_steps=10 format=3 uid="uid://c765psdjm8n4w"]
 
 [ext_resource type="Texture2D" uid="uid://d174u0jjo3v2p" path="res://Flappy Bird Assets/Background/Background4.png" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://bqfduahqm5lq" path="res://scripts/Main.cs" id="1_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://bumu4ygh6ay6a" path="res://scenes/bird.tscn" id="2_0wfyh"]
 [ext_resource type="Script" uid="uid://bpt6rl181ffc4" path="res://scripts/Spawner.cs" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://dj6chg5wty63s" path="res://scenes/menu.tscn" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://buctnfg1pi2xa" path="res://scenes/start.tscn" id="6_tefeu"]
+[ext_resource type="PackedScene" uid="uid://3ashqb10lvf1" path="res://scenes/score.tscn" id="7_o6xl0"]
+[ext_resource type="Script" uid="uid://qb0tdkpc1exc" path="res://scripts/Score.cs" id="8_tipki"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tefeu"]
+size = Vector2(286, 20)
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_tbgi4")
@@ -21,7 +27,15 @@ position = Vector2(983, 325.5)
 scale = Vector2(2.59375, 2.5273438)
 texture = ExtResource("1_o5qli")
 
+[node name="ceiling" type="Area2D" parent="."]
+position = Vector2(1, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ceiling"]
+position = Vector2(145, -10)
+shape = SubResource("RectangleShape2D_tefeu")
+
 [node name="bird" parent="." instance=ExtResource("2_0wfyh")]
+z_index = 1
 position = Vector2(150, 275)
 scale = Vector2(3, 3)
 
@@ -35,11 +49,7 @@ MaxHeight = -250.0
 GapSize = 0.0
 InitialSpawns = 5
 
-[node name="Camera2D" type="Camera2D" parent="."]
-scale = Vector2(3.8259058, 3.616099)
-anchor_mode = 0
-
-[node name="Control" parent="." instance=ExtResource("5_tbgi4")]
+[node name="menu" parent="." instance=ExtResource("5_tbgi4")]
 z_index = 1
 anchors_preset = 0
 anchor_right = 0.0
@@ -50,3 +60,22 @@ offset_right = 1154.0
 offset_bottom = 646.0
 grow_horizontal = 1
 grow_vertical = 1
+
+[node name="start" parent="." instance=ExtResource("6_tefeu")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.0
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 1153.0
+offset_bottom = 645.0
+grow_horizontal = 1
+grow_vertical = 0
+
+[node name="score" parent="." instance=ExtResource("7_o6xl0")]
+z_index = 2
+script = ExtResource("8_tipki")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(3.8259058, 3.616099)
+anchor_mode = 0

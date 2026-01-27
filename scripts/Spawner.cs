@@ -8,9 +8,9 @@ public partial class Spawner : Node2D
 	[Export] public float MinHeight = -250f;
 	[Export] public float MaxHeight = 100f;
 	[Export] public float GapSize = 150f;
-	[Export] public float GroundSpawnY = 600f;  // Y position for ground spawning
-	[Export] public int InitialSpawns = 0;  // For ground: spawn this many sections at start
-	[Export] public float SectionWidth = 336f;  // Width of one section (for ground spacing)
+	[Export] public float GroundSpawnY = 600f;
+	[Export] public int InitialSpawns = 0;
+	[Export] public float SectionWidth = 336f;  // ground spacing
 
 	private float spawnTimer = 0f;
 	private PackedScene objectScene;

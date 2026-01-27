@@ -11,24 +11,46 @@ public partial class Bird : Area2D
 	
 	public bool flying = false;
 	public bool falling = false;
-	public bool alive = true;
+	
+	private bool _alive = true;
+	public bool alive
+	{
+		get => _alive;
+		set
+		{
+			if (_alive && !value)
+			{
+				// Bird just died - stop animation
+				StopAnimation();
+			}
+			_alive = value;
+		}
+	}
 	
 	public Vector2 Velocity = Vector2.Zero;
 
 	public Vector2 StartPos = new Vector2(150, 275);
 
+	private AnimatedSprite2D sprite;
+	private Main main;
+
 	public override void _Ready()
 	{
+		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		main = GetParent() as Main;
 		reset();
 	}
 
 	public override void _Input(InputEvent @event)
 	{
-		if (alive && @event is InputEventMouseButton mouseEvent && mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left)
+		// Only accept input if game has started and bird is alive
+		if (main == null || !alive) return;
+
+		if (@event is InputEventMouseButton mouseEvent && mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left)
 		{
 			flap();
 		}
-		else if (alive && @event is InputEventKey keyEvent && keyEvent.Pressed && keyEvent.Keycode == Key.Space)
+		else if (@event is InputEventKey keyEvent && keyEvent.Pressed && keyEvent.Keycode == Key.Space)
 		{
 			flap();
 		}
@@ -45,44 +67,42 @@ public partial class Bird : Area2D
 	{
 		falling = false;
 		flying = false;
-		alive = true;
+		_alive = true;
 		Position = StartPos;
 		Rotation = 0;
 		Velocity = Vector2.Zero;
+		ResumeAnimation();
+	}
+
+	private void StopAnimation()
+	{
+		sprite.Stop();
+	}
+
+	private void ResumeAnimation()
+	{
+		sprite.Play("fly");
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (alive)
+		// Apply gravity when flying, falling, or dead (so bird falls to ground)
+		if (flying || falling || !alive)
 		{
-			// Apply gravity when flying or falling
-			if (flying || falling)
-			{
-				Velocity = new Vector2(Velocity.X, Velocity.Y + (float)(Gravity * delta));
-			}
-
-			// Cap velocity
-			if (Velocity.Y > Max)
-			{
-				Velocity = new Vector2(Velocity.X, Max);
-			}
-
-			UpdateRotation();
-			
-			// Move the bird manually
-			Position += Velocity * (float)delta;
-		}
-		else
-		{
-			// Dead: continue applying gravity to fall to floor
 			Velocity = new Vector2(Velocity.X, Velocity.Y + (float)(Gravity * delta));
-			if (Velocity.Y > Max)
-			{
-				Velocity = new Vector2(Velocity.X, Max);
-			}
-			
-			Position += Velocity * (float)delta;
 		}
+
+		// Cap velocity
+		if (Velocity.Y > Max)
+		{
+			Velocity = new Vector2(Velocity.X, Max);
+		}
+
+		UpdateRotation();
+			
+		// Move the bird manually
+		Position += Velocity * (float)delta;
+
 	}
 
 	private void UpdateRotation()
@@ -97,10 +117,4 @@ public partial class Bird : Area2D
 		Rotation = Mathf.Lerp(MinRotation, MaxRotation, (normalizedVelocity + 1) / 2);
 	}
 
-	private void Die()
-	{
-		alive = false;
-		flying = false;
-		falling = true;
-	}
 }

@@ -52,7 +52,7 @@ sources/0 = SubResource("TileSetAtlasSource_prsvi")
 size = Vector2(21.071896, 74.00856)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ahhd"]
-size = Vector2(16.737099, 12.753378)
+size = Vector2(9.371555, 12.753378)
 
 [node name="Pipes" type="Node2D"]
 scale = Vector2(2.315911, 1.4362614)
@@ -77,11 +77,11 @@ position = Vector2(47.999996, 395.62988)
 scale = Vector2(1.233871, 2.73576)
 shape = SubResource("RectangleShape2D_f17p0")
 
-[node name="space" type="Area2D" parent="."]
+[node name="score space" type="Area2D" parent="."]
 scale = Vector2(-3.100771, 12.0640545)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="space"]
-position = Vector2(-15.4800005, 22.998613)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="score space"]
+position = Vector2(-17.608856, 22.998617)
 rotation = -3.1415925
-scale = Vector2(0.5780581, 0.43895444)
+scale = Vector2(0.5780581, 0.43895447)
 shape = SubResource("RectangleShape2D_3ahhd")
