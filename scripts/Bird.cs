@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class Bird : Area2D
 {
@@ -20,8 +19,8 @@ public partial class Bird : Area2D
 		{
 			if (_alive && !value)
 			{
-				// Bird just died - stop animation
 				StopAnimation();
+				dieSound.Play();
 			}
 			_alive = value;
 		}
@@ -33,12 +32,15 @@ public partial class Bird : Area2D
 
 	private AnimatedSprite2D sprite;
 	private Main main;
-
+	private AudioStreamPlayer2D flyingSound;
+	private AudioStreamPlayer2D dieSound;
 	public override void _Ready()
 	{
 		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		main = GetParent() as Main;
 		reset();
+		flyingSound = GetNode<AudioStreamPlayer2D>("flap");
+		dieSound = GetNode<AudioStreamPlayer2D>("die");
 	}
 
 	public override void _Input(InputEvent @event)
@@ -61,6 +63,7 @@ public partial class Bird : Area2D
 		flying = true;
 		falling = false;
 		Velocity = new Vector2(Velocity.X, FlapSpeed);
+		flyingSound.Play();
 	}
 
 	public void reset()
@@ -92,28 +95,20 @@ public partial class Bird : Area2D
 			Velocity = new Vector2(Velocity.X, Velocity.Y + (float)(Gravity * delta));
 		}
 
-		// Cap velocity
 		if (Velocity.Y > Max)
 		{
 			Velocity = new Vector2(Velocity.X, Max);
 		}
 
 		UpdateRotation();
-			
-		// Move the bird manually
 		Position += Velocity * (float)delta;
 
 	}
 
 	private void UpdateRotation()
 	{
-		// Map velocity to rotation angle	
-		// Normalize velocity to -1 to 1 range
 		float normalizedVelocity = Velocity.Y / Max;
 		normalizedVelocity = Mathf.Clamp(normalizedVelocity, -1, 1);
-		
-		// When velocity is -Max (flying up), use MinRotation
-		// When velocity is +Max (falling fast), use MaxRotation
 		Rotation = Mathf.Lerp(MinRotation, MaxRotation, (normalizedVelocity + 1) / 2);
 	}
 

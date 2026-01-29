@@ -1,7 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bumu4ygh6ay6a"]
+[gd_scene load_steps=11 format=3 uid="uid://bumu4ygh6ay6a"]
 
 [ext_resource type="Script" uid="uid://nu3bwqt0jy25" path="res://scripts/Bird.cs" id="1_3po83"]
-[ext_resource type="Texture2D" uid="uid://cdc0humnou358" path="res://Flappy Bird Assets/Player/StyleBird1/Bird1-6.png" id="1_kqhkv"]
+[ext_resource type="Texture2D" uid="uid://cdc0humnou358" path="res://assets/Flappy Bird Assets/Player/StyleBird1/Bird1-6.png" id="1_kqhkv"]
+[ext_resource type="AudioStream" uid="uid://dvb7oj13t1tbf" path="res://assets/sfx_wing.mp3" id="3_twsrt"]
+[ext_resource type="AudioStream" uid="uid://diud8hrgx6tto" path="res://assets/error_CDOxCYm.mp3" id="4_b7mtg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3po83"]
 atlas = ExtResource("1_kqhkv")
@@ -57,3 +59,10 @@ frame_progress = 0.87505037
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_jggmu")
+
+[node name="flap" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_twsrt")
+volume_db = -12.0
+
+[node name="die" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_b7mtg")

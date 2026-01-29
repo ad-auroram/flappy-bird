@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=4 uid="uid://dg3k8oxho7d7m"]
 
-[ext_resource type="Texture2D" uid="uid://3xm0kl0oey5r" path="res://Flappy Bird Assets/Tiles/Style 4/SimpleStyle4.png" id="2_3ahhd"]
+[ext_resource type="Texture2D" uid="uid://3xm0kl0oey5r" path="res://assets/Flappy Bird Assets/Tiles/Style 4/SimpleStyle4.png" id="2_3ahhd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_prsvi"]
 texture = ExtResource("2_3ahhd")

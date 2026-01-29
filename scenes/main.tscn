@@ -1,6 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://c765psdjm8n4w"]
+[gd_scene load_steps=12 format=3 uid="uid://c765psdjm8n4w"]
 
-[ext_resource type="Texture2D" uid="uid://d174u0jjo3v2p" path="res://Flappy Bird Assets/Background/Background4.png" id="1_o5qli"]
+[ext_resource type="Texture2D" uid="uid://d174u0jjo3v2p" path="res://assets/Flappy Bird Assets/Background/Background4.png" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://bqfduahqm5lq" path="res://scripts/Main.cs" id="1_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://bumu4ygh6ay6a" path="res://scenes/bird.tscn" id="2_0wfyh"]
 [ext_resource type="Script" uid="uid://bpt6rl181ffc4" path="res://scripts/Spawner.cs" id="4_jyhfs"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://buctnfg1pi2xa" path="res://scenes/start.tscn" id="6_tefeu"]
 [ext_resource type="PackedScene" uid="uid://3ashqb10lvf1" path="res://scenes/score.tscn" id="7_o6xl0"]
 [ext_resource type="Script" uid="uid://qb0tdkpc1exc" path="res://scripts/Score.cs" id="8_tipki"]
+[ext_resource type="AudioStream" uid="uid://gyjeavhouilu" path="res://assets/pop_7e9Is8L.mp3" id="9_85g3d"]
+[ext_resource type="AudioStream" uid="uid://c0v5w7u0yolp8" path="res://assets/background-music-2-424599.mp3" id="10_choun"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tefeu"]
 size = Vector2(286, 20)
@@ -79,3 +81,10 @@ script = ExtResource("8_tipki")
 [node name="Camera2D" type="Camera2D" parent="."]
 scale = Vector2(3.8259058, 3.616099)
 anchor_mode = 0
+
+[node name="scoreSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_85g3d")
+
+[node name="music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_choun")
+volume_db = -8.0

@@ -10,7 +10,7 @@ public partial class Spawner : Node2D
 	[Export] public float GapSize = 150f;
 	[Export] public float GroundSpawnY = 600f;
 	[Export] public int InitialSpawns = 0;
-	[Export] public float SectionWidth = 336f;  // ground spacing
+	[Export] public float SectionWidth = 336f;
 
 	private float spawnTimer = 0f;
 	private PackedScene objectScene;
@@ -19,7 +19,7 @@ public partial class Spawner : Node2D
 
 	public override void _Ready()
 	{
-		// Load the appropriate scene based on type
+		// Load the scene based on type
 		objectScene = ObjectType switch
 		{
 			"pipe" => GD.Load<PackedScene>("res://scenes/pipes.tscn"),
